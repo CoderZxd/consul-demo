@@ -4,3 +4,5 @@ spring:
       host: 172.18.0.116
       port: 30131
       enabled: true
+      config:
+        format: yaml #YAML must be set in the appropriate data key in consul.

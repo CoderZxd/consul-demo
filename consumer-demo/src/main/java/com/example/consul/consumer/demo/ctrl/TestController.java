@@ -1,9 +1,11 @@
 package com.example.consul.consumer.demo.ctrl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -17,7 +19,20 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/ctrl")
+@RefreshScope
 public class TestController {
+
+    //读取配置中心
+    @Value("${config.test:Hello world}")
+    private String testConfig;
+
+    public String getTestConfig() {
+        return testConfig;
+    }
+
+    public void setTestConfig(String testConfig) {
+        this.testConfig = testConfig;
+    }
 
     @Autowired
     private RestTemplate restTemplate;
@@ -30,7 +45,7 @@ public class TestController {
 
     @RequestMapping("/getTest")
     public String getTest(){
-        return this.restTemplate.getForObject("http://consul-demo/ctrl/test",String.class);
+        return this.restTemplate.getForObject("http://consul-demo/ctrl/test",String.class)+";testConfig===>"+testConfig;
     }
 
     @RequestMapping("/getTest1")
