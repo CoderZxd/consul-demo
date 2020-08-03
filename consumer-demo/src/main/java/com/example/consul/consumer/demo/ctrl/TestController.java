@@ -23,6 +23,7 @@ import java.util.List;
 public class TestController {
 
     //读取配置中心
+    //testConfig在consul中完整的目录是prefix + application name + data
     @Value("${config.test:Hello world}")
     private String testConfig;
 
