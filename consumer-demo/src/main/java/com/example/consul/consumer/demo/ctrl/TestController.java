@@ -27,6 +27,17 @@ public class TestController {
     @Value("${config.test:Hello world}")
     private String testConfig;
 
+    @Value("${consumer.demo:Hello world}")
+    private String consumerDemo;
+
+    public String getConsumerDemo() {
+        return consumerDemo;
+    }
+
+    public void setConsumerDemo(String consumerDemo) {
+        this.consumerDemo = consumerDemo;
+    }
+
     public String getTestConfig() {
         return testConfig;
     }
@@ -46,7 +57,7 @@ public class TestController {
 
     @RequestMapping("/getTest")
     public String getTest(){
-        return this.restTemplate.getForObject("http://consul-demo/ctrl/test",String.class)+";testConfig===>"+testConfig;
+        return this.restTemplate.getForObject("http://consul-demo/ctrl/test",String.class)+"testConfig===>"+testConfig+"consumerDemo:"+consumerDemo;
     }
 
     @RequestMapping("/getTest1")
