@@ -1,18 +1,5 @@
 spring:
   application:
     name: consul-demo
-  cloud:
-    consul:
-      discovery:
-        health-check-path: /actuator/health
-        health-check-interval: 10s
-        tags: foo=bar,baz=baz
-        metadata: {"key_1":"value_1","key":"value"}
-#        instance-id: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
-#        datacenters:
-#          consul-demo: dc1
-        serviceName: ${spring.application.name}
-        register: true
-        hostname: 192.168.10.73 #配置 Spring Boot服务的主机地址，也可以不进行配置，默认本机地址
 server:
   port: 8080
