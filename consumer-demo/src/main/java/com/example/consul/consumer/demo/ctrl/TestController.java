@@ -33,6 +33,17 @@ public class TestController {
     @Value("${consumer.demo:Hello world}")
     private String consumerDemo;
 
+    @Value("${consul.demo:Hello world from consul demo}")
+    private String consulDemo;
+
+    public String getConsulDemo() {
+        return consulDemo;
+    }
+
+    public void setConsulDemo(String consulDemo) {
+        this.consulDemo = consulDemo;
+    }
+
     public String getConsumerDemo() {
         return consumerDemo;
     }
@@ -62,7 +73,7 @@ public class TestController {
     public String getTest(@RequestParam String name){
         Map<String,String> map = new HashMap(4);
         map.put("name",name);
-        return this.restTemplate.getForObject("http://consul-demo/ctrl/test?name={1}",String.class,name)+"testConfig===>"+testConfig+"consumerDemo:"+consumerDemo;
+        return this.restTemplate.getForObject("http://consul-demo/ctrl/test?name={1}",String.class,name)+"testConfig===>"+testConfig+"consumerDemo:"+consumerDemo+"consulDemo:"+consulDemo;
 //        return this.restTemplate.getForObject("http://consul-demo/ctrl/test",String.class,map)+"testConfig===>"+testConfig+"consumerDemo:"+consumerDemo;
     }
 
