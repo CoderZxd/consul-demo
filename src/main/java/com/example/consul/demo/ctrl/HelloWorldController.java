@@ -1,6 +1,10 @@
 package com.example.consul.demo.ctrl;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.websocket.server.PathParam;
 
 
 /**
@@ -13,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloWorldController {
 
     @RequestMapping("/test")
-    public String test(){
-        return "Hello world from consul demo！";
+    public String test(@RequestParam String name){
+        return String.format("Hello world from %s!",name);
     }
 
 }

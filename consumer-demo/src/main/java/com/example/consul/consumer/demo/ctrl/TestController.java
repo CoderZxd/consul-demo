@@ -7,10 +7,13 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description TODO
@@ -56,8 +59,11 @@ public class TestController {
     private DiscoveryClient discoveryClient;
 
     @RequestMapping("/getTest")
-    public String getTest(){
-        return this.restTemplate.getForObject("http://consul-demo/ctrl/test",String.class)+"testConfig===>"+testConfig+"consumerDemo:"+consumerDemo;
+    public String getTest(@RequestParam String name){
+        Map<String,String> map = new HashMap(4);
+        map.put("name",name);
+        return this.restTemplate.getForObject("http://consul-demo/ctrl/test?name={1}",String.class,name)+"testConfig===>"+testConfig+"consumerDemo:"+consumerDemo;
+//        return this.restTemplate.getForObject("http://consul-demo/ctrl/test",String.class,map)+"testConfig===>"+testConfig+"consumerDemo:"+consumerDemo;
     }
 
     @RequestMapping("/getTest1")
