@@ -17,6 +17,7 @@ spring:
         health-check-interval: 10s
         tags: consumer
         metadata: {"name":"consumer","key":"zxd-test"}
+        #注册的实例ID
         instance-id: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
         #        datacenters:
         #          consul-demo: dc1
