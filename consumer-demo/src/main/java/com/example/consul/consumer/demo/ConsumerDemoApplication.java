@@ -7,6 +7,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.endpoint.event.RefreshEvent;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 //从Spring Cloud Edgware开始，@EnableDiscoveryClient可省略。只需加上相关依赖，并进行相应配置，即可将微服务注册到服务发现组件上。
 @EnableDiscoveryClient
+@EnableFeignClients
 public class ConsumerDemoApplication {
 
     public static void main(String[] args) {

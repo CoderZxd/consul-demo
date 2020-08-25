@@ -6,6 +6,7 @@ import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+//import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -69,6 +70,13 @@ public class TestController {
     @Autowired
     private DiscoveryClient discoveryClient;
 
+
+    @Autowired
+    private ToolServiceClient toolServiceClient;
+
+    @Autowired
+    private ConsulDemoClient consulDemoClient;
+
     @RequestMapping("/getTest")
     public String getTest(@RequestParam String name){
         Map<String,String> map = new HashMap(4);
@@ -84,12 +92,27 @@ public class TestController {
 
     @RequestMapping("/getTest2")
     public Object getTest2(){
-        List<ServiceInstance> instances = discoveryClient.getInstances("consul-demo");
+        List<ServiceInstance> instances = discoveryClient.getInstances("tool-service");
         if (instances != null && instances.size() > 0 ) {
             for(ServiceInstance serviceInstance:instances){
                 System.out.println("Uri:"+serviceInstance.getUri()+",instanceId:"+serviceInstance.getInstanceId());
             }
         }
-        return discoveryClient.getInstances("consul-demo");
+        return discoveryClient.getInstances("tool-service");
+    }
+
+    @RequestMapping("/getTest3")
+    public Object getTest3(){
+        return this.restTemplate.getForObject("http://tool-service/tools/1",Object.class);
+    }
+
+    @RequestMapping("/getTest4")
+    public Object getTest4(){
+        return toolServiceClient.getTools();
+    }
+
+    @RequestMapping("/getTest5")
+    public String getTest5(@RequestParam String name){
+        return consulDemoClient.test(name);
     }
 }
