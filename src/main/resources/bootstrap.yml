@@ -15,3 +15,10 @@ spring:
         serviceName: ${spring.application.name}
         register: true
         hostname: 192.168.10.73 #配置 Spring Boot服务的主机地址，也可以不进行配置，默认本机地址
+management:
+  endpoint:
+    health:
+      show-details: ALWAYS # 健康检查显示详情
+#  health:
+#    redis:
+#      enabled: false  # 关闭redis的健康检查
